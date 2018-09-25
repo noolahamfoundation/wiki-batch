@@ -98,21 +98,21 @@ def prepareWikiPage(i_row):
 =={{Multi|வாசிக்க|To Read}}==
 """
 
-    paramReplace = Template(pageText)
-    pageText = paramReplace.substitute(pageParamsDict)
+    	paramReplace = Template(pageText)
+    	pageText = paramReplace.substitute(pageParamsDict)
 
-    #Add pdf link
-    pageText = pageText +  pdfLink;
+    	#Add pdf link
+    	pageText = pageText +  pdfLink;
     
-    #Add year category
-    pageText = pageText + "\n\n" + "[[பகுப்பு:" + pgYear + "]]";
+    	#Add year category
+    	pageText = pageText + "\n\n" + "[[பகுப்பு:" + pgYear + "]]";
     
-    #Add other categories
-    catsStr = getCatsText(pgCats)    
-    pageText = pageText + catsStr
+    	#Add other categories
+    	catsStr = getCatsText(pgCats)    
+    	pageText = pageText + catsStr
 
-    return pageText
-    
+    	return pageText
+    	
 
 def translate(string, wdict):
     for key in wdict:
