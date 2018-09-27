@@ -1,4 +1,4 @@
-=# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 import urllib
 import ftplib
 import os
@@ -14,22 +14,22 @@ def getNoolahamToken(i_site, i_api):
      response = req.query(False)
      token = response['query']['pages']['-1']['edittoken']
      return token
-     
+
 def updateWikiPage(i_site, i_api, i_token, i_titlePage, i_updateText):
      params = {'action':'edit', 'title':i_titlePage, 'token':i_token,  'text': i_updateText}
      request = i_api.APIRequest(i_site, params)
      result = request.query()
      print result
-     return	      
-	 
+     return
+
 def getCatsText(i_catsStr):
-    catsList = i_catsStr.split(";") 
+    catsList = i_catsStr.split(";")
     catText = "\n"
     for cat in catsList:
         catText = catText = "[[பகுப்பு:" + cat + "]]\n"
     return catText
-    
-def prepareWikiPage(i_row):     
+
+def prepareWikiPage(i_row):
     pgNumber = i_row[0]
     pgFolderPath = i_row[1]
     pgTitle = i_row[2]
@@ -46,7 +46,7 @@ def prepareWikiPage(i_row):
     pgCats = i_row[16]
 
     pdfUrl = "http://noolaham.net" + pgFolderPath + "/" + pgNumber + ".pdf"
-    pdfLink = "\n<!--pdf_link-->* [" + pdfUrl + " " + pgTitle + "] {{P}}<!--pdf_link-->\n"	
+    pdfLink = "\n<!--pdf_link-->* [" + pdfUrl + " " + pgTitle + "] {{P}}<!--pdf_link-->\n"
 
     pageParamsDict = {'contentType':pgContentType, 'title':pgTitle, 'number':pgNumber, 'date':pgDate, 'year':pgYear, 'pages':pgPages, 'langauge':pgLanguage, 'periodicity': pgPeriodicity, 'month':pgMonth, 'day':pgDay, 'author':pgAuthor, 'publisher':pgPublisher, 'category':pgCats}
 
@@ -104,24 +104,24 @@ def prepareWikiPage(i_row):
 
     #Add pdf link
     pageText = pageText +  pdfLink;
-    
+
     #Add year category
     pageText = pageText + "\n\n" + "[[பகுப்பு:" + pgYear + "]]";
-    
+
     #Add other categories
-    catsStr = getCatsText(pgCats)    
+    catsStr = getCatsText(pgCats)
     pageText = pageText + catsStr
 
     return pageText
-    	
+
 
 def translate(string, wdict):
     for key in wdict:
         string = string.replace(key, wdict[key].lower())
-    return string.upper()	 
-	 
+    return string.upper()
+
 # create a Wiki object
-site = wiki.Wiki("https://yourwiki.org/api.php") 
+site = wiki.Wiki("https://yourwiki.org/api.php")
 
 # login - required for read-restricted wikis
 if not site.login("Username ", "Password", verify=True):
@@ -136,9 +136,9 @@ try:
      reader = csv.reader(batchfile)
      for row in reader:
         pgTitle = row[2]
-        print pgTitle
         pageText = prepareWikiPage(row)
-        updateWikiPage(site, api, token, pgTitle, pageText)	
-		  		  
+        print(pageText)
+        #updateWikiPage(site, api, token, pgTitle, pageText)
+
 finally:
      batchfile.close()
