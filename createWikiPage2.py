@@ -138,7 +138,7 @@ try:
         pgTitle = row[2]
         pageText = prepareWikiPage(row)
         print(pageText)
-        #updateWikiPage(site, api, token, pgTitle, pageText)
+        updateWikiPage(site, api, token, pgTitle, pageText)
 
 finally:
      batchfile.close()
