@@ -50,6 +50,7 @@ def prepareWikiPage(i_row):
 
     pageParamsDict = {'contentType':pgContentType, 'title':pgTitle, 'number':pgNumber, 'date':pgDate, 'year':pgYear, 'pages':pgPages, 'langauge':pgLanguage, 'periodicity': pgPeriodicity, 'month':pgMonth, 'day':pgDay, 'author':pgAuthor, 'publisher':pgPublisher, 'category':pgCats}
 
+    pageText = ""
     if pgContentType == "இதழ்":
         pageText = """{{$contentType|
     நூலக எண் = $number |
@@ -98,20 +99,20 @@ def prepareWikiPage(i_row):
 =={{Multi|வாசிக்க|To Read}}==
 """
 
-    	paramReplace = Template(pageText)
-    	pageText = paramReplace.substitute(pageParamsDict)
+    paramReplace = Template(pageText)
+    pageText = paramReplace.substitute(pageParamsDict)
 
-    	#Add pdf link
-    	pageText = pageText +  pdfLink;
+    #Add pdf link
+    pageText = pageText +  pdfLink;
     
-    	#Add year category
-    	pageText = pageText + "\n\n" + "[[பகுப்பு:" + pgYear + "]]";
+    #Add year category
+    pageText = pageText + "\n\n" + "[[பகுப்பு:" + pgYear + "]]";
     
-    	#Add other categories
-    	catsStr = getCatsText(pgCats)    
-    	pageText = pageText + catsStr
+    #Add other categories
+    catsStr = getCatsText(pgCats)    
+    pageText = pageText + catsStr
 
-    	return pageText
+    return pageText
     	
 
 def translate(string, wdict):
