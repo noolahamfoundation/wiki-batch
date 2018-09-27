@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+=# -*- coding: utf-8 -*-
 import urllib
 import ftplib
 import os
@@ -125,7 +125,7 @@ site = wiki.Wiki("https://yourwiki.org/api.php")
 
 # login - required for read-restricted wikis
 if not site.login("Username ", "Password", verify=True):
-print("Login failed")
+    print("Login failed")
 
 #Get Token (needed to edit wiki)
 token = getNoolahamToken(site, api)
