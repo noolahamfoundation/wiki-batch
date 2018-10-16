@@ -4,10 +4,12 @@ import os
 import csv
 import sys
 import time
+from ftplib import FTP_TLS
 
 # Uploads the html file to the noolaham.net server
 def uploadToServer(i_session, i_ftppath, i_htmldir, i_htmlfile):
      print "Uploading file: " + i_htmlfile
+     i_ftppath = i_ftppath.replace("/project", "")
      i_session.cwd(i_ftppath)
      os.chdir(i_htmldir)
      file = open(i_htmlfile,'rb')                  		# file to send
@@ -24,7 +26,12 @@ def createCoverImage(i_fileName):
     command = "java -jar LinkTester.jar ccp " + i_fileName
     os.system(command)
     
-session = ftplib.FTP('ftpserver','ftpuser','ftppwd')
+session=FTP_TLS()
+session.set_debuglevel(2)
+session.connect('ftpip', 21)
+session.sendcmd('USER ftpusername')
+session.sendcmd('PASS ftppwd)
+
 tooldir = r"C:\tooldir"
 datadir = os.path.join(tooldir, "data")
 
@@ -45,5 +52,5 @@ try:
 finally:
      batchfile.close()
      
+session.close()
 
-session.quit()
